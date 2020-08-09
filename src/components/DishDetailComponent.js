@@ -29,7 +29,7 @@ class DishDetail extends Component{
             const commentsLoop = dish.comments.map((comment) => {
                 return(
                     <ul className="list-unstyled">
-                        <li>{comment.comment}</li>
+                        <li><p>{comment.comment}</p></li>
                         <li>-- {comment.author}, {moment(comment.date).format('MMM, DD , YYYY')}</li>
                     </ul>
                 )
@@ -47,13 +47,16 @@ class DishDetail extends Component{
     }
 
     render(){
-        const selectedDish = this.renderDish(this.props.selectedDish);
-        const comments = this.renderComments(this.props.selectedDish);
+        const selectedDish = this.renderDish(this.props.dish);
+        const comments = this.renderComments(this.props.dish);
         return(
-            <div className="row">
-                {selectedDish}
-                {comments}
+            <div className="container">
+                <div className="row">
+                    {selectedDish}
+                    {comments}
+                </div> 
             </div>
+            
         );
     }
 }
