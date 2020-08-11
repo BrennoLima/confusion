@@ -1,6 +1,6 @@
 import React from 'react';
-import {Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
-import moment from 'moment';
+import {Card, CardImg, CardTitle, CardText, CardBody, BreadcrumbItem, Breadcrumb } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
     function RenderDish({dish}){
         if(dish != null){
@@ -21,24 +21,32 @@ import moment from 'moment';
         }
     }
 
-    function RenderComments({dish}){
-        if(dish != null){
-            const commentsLoop = dish.comments.map((comment) => {
-                return(
-                    <ul className="list-unstyled">
-                        <li><p>{comment.comment}</p></li>
-                        <li>-- {comment.author}, {moment(comment.date).format('MMM, DD , YYYY')}</li>
-                    </ul>
-                )
-            });
+    function RenderComments({comments}){
+        if(comments != null){
             return(
                 <div className="col-12 col-md-5 m-1">
-                    <h4><strong>Comments</strong></h4>
-                    {commentsLoop}
+                    <h4>Comments</h4>
+                    <ul className="list-unstyled">
+                        {comments.map((comment) => {
+                            return(
+                                <li key={comment.id}>
+                                    <p>{comment.comment}</p>
+                                    <p>-- {comment.author}{'. '}
+                                        {new Intl.DateTimeFormat("en-US", {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "2-digit"
+                                        }).format(new Date(comment.date))}
+                                    </p>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             );
         }
         else{
+            console.log("null");
             return (<div></div>);
         }
     }
@@ -47,9 +55,17 @@ import moment from 'moment';
         if(props.dish != null){
            return(
                 <div className="container">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr/>
+                    </div>
                     <div className="row">
                         <RenderDish dish={props.dish}/> 
-                        <RenderComments dish={props.dish}/>
+                        <RenderComments comments={props.comments}/>
                     </div> 
                 </div>
             ); 
