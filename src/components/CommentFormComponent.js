@@ -24,7 +24,8 @@ class CommentForm extends Component{
     }
 
     handleSubmit(values){
-        alert(JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render(){
@@ -48,16 +49,16 @@ class CommentForm extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="name" md={12}>Your Name</Label>
+                                <Label htmlFor="author" md={12}>Your Name</Label>
                                 <Col md={12}>
-                                    <Control.text model=".name" id="name" name="name" 
+                                    <Control.text model=".author" id="author" name="author" 
                                     className="form-control" placeholder="Your Name"
                                     validators={{
                                         required, minLength: minLength(2), maxLength: maxLength(15)
                                     }}/>
                                     <Errors
                                         className="text-danger"
-                                        model=".name"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required. ',
