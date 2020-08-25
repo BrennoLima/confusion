@@ -24,7 +24,7 @@ import { baseUrl } from '../shared/baseUrl'
         }
     }
 
-    function RenderComments({comments, addComment, dishId}){
+    function RenderComments({comments, postComment, dishId}){
         if(comments != null){
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -45,7 +45,7 @@ import { baseUrl } from '../shared/baseUrl'
                             );
                         })}
                     </ul>
-                    <CommentForm addComment={addComment} dishId={dishId}/>
+                    <CommentForm postComment={postComment} dishId={dishId}/>
                 </div>
                 
             );
@@ -89,7 +89,7 @@ import { baseUrl } from '../shared/baseUrl'
                     <div className="row">
                         <RenderDish dish={props.dish}/> 
                         <RenderComments comments={props.comments}
-                        addComment={props.addComment} dishId={props.dish.id}/>
+                        postComment={props.postComment} dishId={props.dish.id}/>
                     </div> 
                 </div>
             ); 
